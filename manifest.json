@@ -1,7 +1,7 @@
 {
-  "name": "Daily Astrology Business",
+  "name": "Daily Astrology Business - Admin Access",
   "short_name": "Astrology Biz",
-  "description": "Colorful offline Myanmar business dashboard with customers, booking, appointments, payments, income, expenses, inventory and monthly reports",
+  "description": "Daily Astrology Business App with online Admin-generated access codes",
   "lang": "my",
   "start_url": "./index.html",
   "scope": "./",

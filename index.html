@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#6e46e8">
   <meta name="description" content="Daily Astrology Business - daily visitors, bookings, appointments, income, expenses and stock tracking">
-  <title>Daily Astrology Business</title>
+  <title>Daily Astrology Business · Admin Access</title>
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="manifest" href="./manifest.json">
   <style>
@@ -54,19 +54,87 @@
     @media(max-width:950px){.mobile-nav{background:#fffffff7;box-shadow:0 -5px 20px #6d49d11a}.mobile-nav button.active{color:#754de0}}
     @media(max-width:600px){.hero{padding:20px 18px;border-radius:18px}.hero h2{font-size:21px}.summary-list{grid-template-columns:repeat(2,minmax(0,1fr))}.summary-mini{padding:13px}.summary-mini strong{font-size:23px}.grid.kpis{gap:10px}.grid.kpis .kpi{padding:15px;min-height:128px}.grid.kpis .kpi .value{font-size:19px}.grid.kpis .profit .value{font-size:26px}.mobile-nav{justify-content:flex-start;gap:3px;overflow-x:auto;overflow-y:hidden;padding-left:8px;padding-right:8px;scrollbar-width:thin}.mobile-nav button{min-width:77px;flex:0 0 77px}.method-row{gap:7px}.method-row span:last-child{font-size:11px}.form-grid{grid-template-columns:1fr 1fr;gap:12px}.report-box{grid-template-columns:1fr}}
     @media print{.hero,.cat-add-wrap,.method-tabs{display:none!important}}
+
+    body.dab-locked .app,body.dab-locked .mobile-nav {display:none!important}
+    #dab-gate{min-height:100dvh;display:grid;place-items:center;padding:25px 16px;background:radial-gradient(circle at 22% 12%,#cfbcff 0,transparent 45%),radial-gradient(circle at 90% 91%,#a5ece8 0,transparent 42%),#f7f4ff;color:#35265b}
+    #dab-gate[hidden],#dab-admin-panel[hidden],#dab-user-section[hidden],#dab-admin-section[hidden],#dab-new-code[hidden],#dab-admin-button[hidden],#dab-logout-button[hidden]{display:none!important}
+    .dab-gate-card{width:min(100%,460px);background:white;border:1px solid #e9dcff;border-radius:25px;padding:28px 24px;box-shadow:0 18px 55px #58419e21}
+    .dab-logo{display:flex;align-items:center;gap:14px;margin-bottom:15px}.dab-logo img{height:54px;width:54px;border-radius:15px}
+    .dab-logo h1{font-size:21px;line-height:1.2;margin:0}.dab-logo p{margin:5px 0 0;color:#73618d;font-size:12px}
+    .dab-gate-card p{color:#756487;font-size:13px;line-height:1.7}.dab-gate-card form{display:grid;gap:11px;margin-top:15px}
+    .dab-gate-card label,.dab-admin-card label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+    .dab-gate-card input,.dab-admin-card input,.dab-admin-card select{border:1px solid #dcd2eb;border-radius:11px;padding:13px;width:100%;font-size:14px;background:white;color:#32214d;min-width:0}
+    .dab-primary{background:linear-gradient(110deg,#7b43e8,#c14de1);color:white;border:0;border-radius:12px;padding:13px 15px;font-weight:800;font-size:13px}
+    .dab-ghost{border:1px solid #e5dcf4;border-radius:10px;background:#faf8ff;color:#633caf;padding:11px;font-weight:700}
+    .dab-error{color:#ba3e52!important}.dab-footer-note{font-size:11px;color:#7d728c;margin-top:20px;line-height:1.7}
+    #dab-admin-panel{position:fixed;inset:0;background:#191127aa;z-index:9000;overflow:auto;padding:20px 12px}
+    .dab-admin-card{background:white;width:min(100%,820px);margin:25px auto;padding:25px;border-radius:20px;color:#2b2340}
+    .dab-admin-card h2{margin:0 0 13px}.dab-admin-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;align-items:end}
+    .dab-license-row{border:1px solid #e5dff0;border-radius:12px;padding:13px;margin-top:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .dab-license-row small{display:block;font-size:11px;color:#746e81;margin-top:5px}.dab-license-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+    .dab-small{border:1px solid #d7c6eb;background:#f6f0ff;color:#6940a4;padding:7px 9px;border-radius:9px;font-size:11px}
+    .dab-toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:14px}
+    #dab-created-code{font-size:15px;font-family:monospace;font-weight:800;overflow-wrap:anywhere;padding:12px;background:#f3ebff;border-radius:8px}
+    #dab-admin-button,#dab-logout-button{border:1px solid #ddd0ff;color:#5a35a9;background:white;border-radius:10px;padding:9px 11px;font-size:12px;font-weight:700}
+    @media(max-width:630px){.dab-admin-grid{grid-template-columns:1fr}.dab-admin-card{padding:17px}}
   </style>
 </head>
-<body>
+<body class="dab-locked">
+<section id="dab-gate" aria-label="Access Code or Admin login">
+  <div class="dab-gate-card">
+    <div class="dab-logo"><img src="./icon-192.png" alt=""><div><h1>Daily Astrology Business</h1><p>Admin Access · Version 3.0</p></div></div>
+    <p id="dab-message" role="status">Access Code စစ်ဆေးနေပါသည်…</p>
+    <div id="dab-user-section">
+      <form id="dab-user-form">
+        <label for="dab-user-code">Admin က ပေးထားသော Access Code</label>
+        <input id="dab-user-code" type="text" required placeholder="ASTRO-XXXXXX-XXXXXX-XXXXXX-XXXXXX" autocomplete="off" spellcheck="false">
+        <button class="dab-primary" type="submit">🔓 Code ဖြင့် App ဖွင့်မည်</button>
+      </form>
+      <button id="dab-switch-admin" class="dab-ghost" type="button" style="width:100%;margin-top:16px">⚙ Admin Login</button>
+    </div>
+    <div id="dab-admin-section" hidden>
+      <form id="dab-admin-form">
+        <label for="dab-admin-email">Admin Email</label><input id="dab-admin-email" type="email" required autocomplete="username">
+        <label for="dab-admin-password">Admin Password</label><input id="dab-admin-password" type="password" required autocomplete="current-password">
+        <button class="dab-primary" type="submit">Admin ဝင်ရန်</button>
+      </form>
+      <button id="dab-switch-user" class="dab-ghost" type="button" style="width:100%;margin-top:16px">← Access Code ဖြင့် ဝင်ရန်</button>
+    </div>
+    <p class="dab-footer-note">Code ကို Admin ထံမှ တောင်းယူပါ။ Internet မရှိချိန်တွင် အသုံးပြုခွင့် စစ်ဆေးနိုင်မည် မဟုတ်ပါ။ Customer / ငွေစာရင်းများကို သင့်ဖုန်းထဲတွင်သာ သိမ်းဆည်းပါသည်။</p>
+  </div>
+</section>
+<div id="dab-admin-panel" hidden>
+  <div class="dab-admin-card">
+    <div class="dab-toolbar"><h2>🔐 Admin · Code Management</h2><button id="dab-close-admin" class="dab-ghost" type="button">✕ ပိတ်မည်</button></div>
+    <p id="dab-admin-message" role="status" style="font-size:13px">Admin Code ထုတ်ပေးနိုင်ပါပြီ။</p>
+    <form id="dab-create-form">
+      <div class="dab-admin-grid">
+        <div><label for="dab-code-label">အသုံးပြုမည့်သူ အမည် / အမှတ်</label><input type="text" id="dab-code-label" required maxlength="100" placeholder="ဥပမာ - Ma May"></div>
+        <div><label for="dab-code-days">သက်တမ်း</label><select id="dab-code-days"><option value="30">၃၀ ရက်</option><option value="90">၉၀ ရက်</option><option value="365">၁ နှစ်</option><option value="7">၇ ရက်</option><option value="0">သက်တမ်းမကုန်</option></select></div>
+        <div><label for="dab-code-devices">ဖုန်းအရေအတွက်</label><select id="dab-code-devices"><option value="1">၁ လုံး</option><option value="2">၂ လုံး</option><option value="3">၃ လုံး</option><option value="5">၅ လုံး</option><option value="10">၁၀ လုံး</option><option value="20">၂၀ လုံး</option></select></div>
+      </div>
+      <button type="submit" class="dab-primary" style="margin-top:14px">＋ Access Code အသစ်ထုတ်မည်</button>
+    </form>
+    <section id="dab-new-code" hidden style="margin-top:15px;padding:12px;border:1px solid #c8b3ef;border-radius:12px">
+      <b>Code အသစ် (တစ်ကြိမ်သာပြန်မြင်ရမည်)</b><div id="dab-created-code" style="margin:10px 0"></div>
+      <button id="dab-copy-code" class="dab-ghost" type="button">📋 Code Copy</button>
+    </section>
+    <hr style="margin:26px 0;border:0;border-top:1px solid #ebe7f5">
+    <div class="dab-toolbar"><h3 style="margin:0">အသုံးပြုခွင့်စာရင်း</h3><button id="dab-admin-refresh" type="button" class="dab-ghost">↻ Refresh</button></div>
+    <div id="dab-code-list"></div>
+    <p class="dab-footer-note">Code သည် Server တွင် Hash ဖြင့်သာသိမ်းသည်။ Code ထုတ်ပြီးချိန် Copy ယူပါ။ Revoked Code ကို ပြန်မသုံးနိုင်ပါ။ ဖုန်းစာရင်း Reset လုပ်ပါက အရင်ဖုန်းများမှ အသုံးပြုခွင့်ပျက်မည်။</p>
+  </div>
+</div>
 <div class="app">
   <aside class="sidebar">
     <div class="brand"><img src="./icon.svg" alt=""><div><strong>Daily Astrology<br>Business</strong><small>BUSINESS LEDGER</small></div></div>
     <nav class="nav" id="desktop-nav"></nav>
-    <div class="sidebar-foot">✦ နေ့စဉ်လုပ်ငန်းမှတ်တမ်း<br>✦ ငွေဝင် / ငွေထွက် / လက်ကျန်<br>✦ Offline &amp; Private</div>
+    <div class="sidebar-foot">✦ နေ့စဉ်လုပ်ငန်းမှတ်တမ်း<br>✦ ငွေဝင် / ငွေထွက် / လက်ကျန်<br>✦ Admin Access &amp; Private</div>
   </aside>
   <main class="main">
     <div class="topbar">
       <div><div class="eyebrow">✦ DAILY ASTROLOGY BUSINESS</div><h1 id="page-title">Dashboard</h1><div class="subtitle" id="page-subtitle">လုပ်ငန်းအခြေအနေ အကျဉ်းချုပ်</div></div>
-      <div class="top-actions"><span class="chip" id="today-label"></span><button class="btn mint" data-action="open-add" data-kind="transactions">＋ ငွေစာရင်းသွင်း</button></div>
+      <div class="top-actions"><button id="dab-admin-button" type="button" hidden>🔐 Admin Panel</button><button id="dab-logout-button" type="button" hidden>Admin ထွက်မည်</button><span class="chip" id="today-label"></span><button class="btn mint" data-action="open-add" data-kind="transactions">＋ ငွေစာရင်းသွင်း</button></div>
     </div>
     <div id="content"></div>
     <div class="footer">Daily Astrology Business · ဒေတာများကို ဤဖုန်း / Browser ထဲတွင် သိမ်းဆည်းပါသည်။ ပုံမှန် Backup ယူပါ။</div>
@@ -80,7 +148,8 @@
 <input type="file" id="import-file" accept=".json,application/json" hidden>
 <script>
 (()=>{'use strict';
-  const DB_KEY='daily-astrology-income-v1';
+  const LEGACY_DB_KEY='daily-astrology-income-v1';
+  let DB_KEY='dab-v3-locked';
   const PUBLIC_APP_URL='https://mrnay3491-ui.github.io/Daily-Astrology-InCome/';
   const tabs=[['dashboard','▦','အကျဉ်းချုပ်','Dashboard'],['customers','♙','အမည်စာရင်း','Customers'],['visits','♧','အဝင် / အထွက်','Visitors'],['bookings','▤','Booking','Bookings'],['appointments','◷','ရက်ချိန်း','Appointments'],['transactions','⇄','ဝင်ငွေ / ထွက်ငွေ','Money'],['payments','◉','KPay / Wave / Cash','Payments'],['items','◈','ပစ္စည်းများ','Items'],['reports','▥','အရှုံး / အမြတ်','Reports'],['settings','⚙','Settings','Settings']];
   const defaultCategories={appointments:['ဆိုင်ဖွင့်ပွဲ','ဆိုင်သန့်','အိမ်သန့်','ခြံသန့်','နဝင်းယတြာ','ရွှေမှော်သွင်း','ဆေထိုးဆေးပါက်','အခြား'],income:['ဗေဒင်ဝန်ဆောင်မှု','Booking / Deposit','ရန်ပုံငွေ','အခြား ဝင်ငွေ'],expense:['ပစ္စည်းဝယ်','ငှားရမ်းခ','မီး/ရေ/အင်တာနက်','ဝန်ထမ်းလစာ','သယ်ယူပို့ဆောင်','အခြား ထွက်ငွေ'],items:['ဖယောင်းတိုင်','ခုံဖိနပ်','ပန်းကန်','ကြေးပြား','ရှပ်ပန်းနီစ']};
@@ -95,6 +164,16 @@
   function emptyDB(){return {version:2,transactions:[],visits:[],bookings:[],appointments:[],items:[],customers:[],categories:{appointments:[],income:[],expense:[],items:[]}}}
   function loadDB(){try{const x=JSON.parse(localStorage.getItem(DB_KEY));if(x&&typeof x==='object'){let d=emptyDB();for(const k of ['transactions','visits','bookings','appointments','items','customers'])d[k]=Array.isArray(x[k])?x[k]:[];for(let k in d.categories)d.categories[k]=Array.isArray(x.categories?.[k])?x.categories[k]:[];return d}}catch(e){console.error(e)}return emptyDB()}
   function save(){try{localStorage.setItem(DB_KEY,JSON.stringify(db));return true}catch(e){alert('Storage မလုံလောက်ပါ။ Backup Export ယူပြီး ဖုန်း Storage ကို စစ်ဆေးပါ။');return false}}
+  // Store the ledger separately for each authenticated phone/user.
+  // Safely copy the previous V2 data to the first Admin login only (source kept untouched).
+  window.dabOpenApp=function({userId,role}){
+    const scopedKey='dab-v3-ledger-'+userId;
+    if(role==='admin'&&!localStorage.getItem(scopedKey)&&localStorage.getItem(LEGACY_DB_KEY)){
+      try{localStorage.setItem(scopedKey,localStorage.getItem(LEGACY_DB_KEY));}catch(e){console.warn(e)}
+    }
+    DB_KEY=scopedKey;db=loadDB();render();
+  };
+  window.dabCloseApp=function(){DB_KEY='dab-v3-locked';db=emptyDB();render();};
   function isoDate(d=new Date()){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
   function todayISO(){return isoDate()}
   function nowHHMM(){let d=new Date();return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`}
@@ -135,7 +214,7 @@
   function stockEntries(){let map=new Map();for(const r of [...db.items].sort((a,b)=>(a.date||'').localeCompare(b.date||''))){let key=(r.name||'').trim().toLocaleLowerCase()+'|'+(r.unit||'');let v=map.get(key)||{name:r.name,unit:r.unit,count:0};v.count+=(r.movement==='in'?1:-1)*number(r.qty);map.set(key,v)}return Array.from(map.values()).sort((a,b)=>a.name.localeCompare(b.name))}
   function renderItems(){let list=sortByDate(db.items),stocks=stockEntries();return `${heading('အထွေထွေ ပစ္စည်းစာရင်း',addButton('items')+catAddButton('items','＋ ပစ္စည်းအမျိုးအစား'))}<div class="notice warning">ပစ္စည်းဝယ်ယူမှု၏ ငွေကုန်ကျစရိတ်ကို “ငွေစာရင်း → ထွက်ငွေ” တွင် သီးသန့်မှတ်တမ်းသွင်းပါ။ ဤနေရာသည် ပစ္စည်း အရေအတွက်အတွက်သာ ဖြစ်ပြီး ငွေစာရင်းကို နှစ်ခါမတွက်ပါ။</div>${heading('ပစ္စည်း လက်ကျန်')}<div class="stock-grid">${stocks.length?stocks.map(s=>`<div class="stock-item"><b>${safe(s.name)}</b><strong class="${s.count<0?'negative':''}">${cash(s.count)}</strong><small>${safe(s.unit||'ခု')} လက်ကျန်</small></div>`).join(''):'<div class="small-note">ပစ္စည်းစာရင်း မရှိသေးပါ။</div>'}</div>${heading('အဝင် / အထွက် မှတ်တမ်း')}<div class="table-wrap"><table><thead><tr><th>နေ့ရက်</th><th>ပစ္စည်းအမည်</th><th>အဝင် / အထွက်</th><th>အရေအတွက်</th><th>မှတ်ချက်</th><th></th></tr></thead><tbody>${list.length?list.map(r=>`<tr><td>${dateView(r.date)}</td><td>${safe(r.name)}</td><td>${badge(r.movement)}</td><td><b>${r.movement==='in'?'+':'−'}${cash(r.qty)} ${safe(r.unit||'ခု')}</b></td><td>${safe(r.note||'—')}</td><td>${buttonActions('items',r)}</td></tr>`).join(''):noRows(6)}</tbody></table></div>`}
   function renderReports(){let rows=byMonth(filterMonth),s=summarize(rows),total=summarize(db.transactions),daily=new Map(),cats=new Map();for(const r of rows){let d=daily.get(r.date)||{date:r.date,income:0,expense:0};d[r.type]+=number(r.amount);daily.set(r.date,d);let key=(r.type==='income'?'ဝင်ငွေ • ':'ထွက်ငွေ • ')+(r.category||'အခြား');cats.set(key,(cats.get(key)||0)+number(r.amount))}return `${heading('လအလိုက် အစီရင်ခံစာ',`<button class="btn small outline" data-action="print">⎙ Print / PDF</button>`)}<div class="filter-row"><label for="report-month" class="small-note">လ ရွေးပါ</label><input class="field-input" type="month" id="report-month" value="${safe(filterMonth)}"><button class="btn small mint" data-action="export-csv">CSV စာရင်း Export</button><button class="btn small outline" data-action="save-month-report">↓ လကုန်အရှုံး/အမြတ် Save</button></div><div class="grid kpis"><div class="card kpi"><div class="klabel">${safe(filterMonth)} · ဝင်ငွေ</div><div class="value positive">${cash(s.income)} <span class="unit">Ks</span></div></div><div class="card kpi"><div class="klabel">ထွက်ငွေ</div><div class="value negative">${cash(s.expense)} <span class="unit">Ks</span></div></div><div class="card kpi profit"><div class="klabel">လစဉ် အမြတ် / အသားတင်</div><div class="value ${s.profit>=0?'positive':'negative'}">${cash(s.profit)} <span class="unit">Ks</span></div></div></div>${heading('နေ့အလိုက် ဝင်ငွေ / ထွက်ငွေ')}<div class="table-wrap"><table class="summary-table"><thead><tr><th>ရက်စွဲ</th><th class="amount">ဝင်ငွေ</th><th class="amount">ထွက်ငွေ</th><th class="amount">လက်ကျန်</th></tr></thead><tbody>${daily.size?[...daily.values()].sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td>${dateView(x.date)}</td><td class="amount positive">${money(x.income)}</td><td class="amount negative">${money(x.expense)}</td><td class="amount ${x.income-x.expense>=0?'positive':'negative'}">${signed(x.income-x.expense)}</td></tr>`).join(''):noRows(4)}</tbody></table></div>${heading('အမျိုးအစားအလိုက် စုစုပေါင်း')}<div class="report-box"><div class="card">${cats.size?[...cats].sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="method-row"><span>${safe(k)}</span><strong>${money(v)}</strong></div>`).join(''):'<p class="small-note">စာရင်းမရှိပါ။</p>'}</div><div class="card"><h3 class="panel-title">လက်ရှိမှတ်တမ်း အားလုံး (All-time)</h3><div class="method-row"><span>ဝင်ငွေ</span><strong class="positive">${money(total.income)}</strong></div><div class="method-row"><span>ထွက်ငွေ</span><strong class="negative">${money(total.expense)}</strong></div><div class="method-row"><b>အသားတင်</b><b class="${total.profit>=0?'positive':'negative'}">${signed(total.profit)}</b></div><p class="small-note">ဝန်ဆောင်မှုအတွက် ရသေးသော Booking ကျန်ငွေကို မတွက်ထားပါ။</p></div></div><p class="small-note">* ဤအစီရင်ခံစာသည် cash-basis ဝင်ငွေ − ထွက်ငွေ လက်ကျန်ဖြစ်ပြီး အခွန်/အကြွေး/ပိုင်ဆိုင်မှုတန်ဖိုးတို့ပါဝင်သည့် စာရင်းကိုင်အမြတ် မဟုတ်ပါ။</p>`}
-  function renderSettings(){return `${heading('အခြားသူများကို App ပေးသုံးရန်')}<div class="card" style="background:linear-gradient(120deg,#f5eeff,#fff3fa);border:1px solid #e4d9ff"><h3 class="panel-title">↗ Daily Astrology Business — Share App</h3><p class="small-note">အောက်က Link ကို Messenger၊ Viber၊ Telegram၊ WhatsApp မှာပို့ပါ။ လက်ခံသူက Chrome မှာဖွင့်ပြီး Add to Home screen / Install လုပ်နိုင်ပါသည်။</p><div class="quick"><button type="button" class="btn mint" data-action="share-app">↗ App Link ပို့မည်</button><button type="button" class="btn outline" data-action="copy-app-link">⧉ Link ကူးမည်</button><a class="btn secondary" href="${safe(PUBLIC_APP_URL)}" target="_blank" rel="noopener noreferrer">App ဖွင့်မည်</a></div><p class="small-note" style="overflow-wrap:anywhere">${safe(PUBLIC_APP_URL)}</p><div class="notice">🔒 <b>တစ်ဦးချင်းစီ သီးသန့်စာရင်း</b> — အခြားသူများ App သုံးနိုင်သော်လည်း ကိုယ့်ဖုန်းထဲက Customer၊ ဖုန်းနံပါတ်၊ ဝင်ငွေ၊ ထွက်ငွေ အချက်အလက်များကို သူတို့ မမြင်နိုင်ပါ။ အခြားဖုန်းများအကြား စာရင်းအလိုအလျောက် Sync မဖြစ်သေးပါ။</div></div>${heading('အမျိုးအစားများ ထပ်ပေါင်းရန်')}<div class="quick">${catAddButton('appointments','＋ ရက်ချိန်း')}${catAddButton('income','＋ ဝင်ငွေ')}${catAddButton('expense','＋ ထွက်ငွေ')}${catAddButton('items','＋ ပစ္စည်း')}</div><p class="small-note">အသစ်ထည့်ထားသောအမျိုးအစားများကို သက်ဆိုင်ရာ Form ရဲ့ ရွေးချယ်စရာစာရင်းထဲမှာ တွေ့နိုင်ပါမည်။</p>${heading('Data Backup & Restore')}<div class="split"><div class="card"><h3 class="panel-title">အချက်အလက် သိမ်းဆည်းခြင်း</h3><p class="small-note">ဒေတာများကို လက်ရှိ Browser ၏ Local Storage ထဲတွင်သာ သိမ်းထားပါသည်။ ဖုန်းအသစ်၊ Browser အသစ်သို့ အလိုအလျောက် မကူးပါ။ Browser data ရှင်းလင်းလျှင် ဆုံးရှုံးနိုင်ပါသည်။</p><div class="quick"><button class="btn mint" data-action="backup">↓ JSON Backup</button><button class="btn outline" data-action="import">↑ JSON Restore</button></div><p class="small-note">အကြံပြုချက် — နေ့တိုင်း သို့မဟုတ် အပတ်စဉ် JSON Backup ကို Files / Drive ထဲမှာ သိမ်းပါ။ Restore သည် ယခင်ဒေတာကို အစားထိုးပါမည်။</p></div><div class="card"><h3 class="panel-title">စာရင်း Export</h3><p class="small-note">ငွေစာရင်းများကို Excel / Google Sheets ဖြင့် ဖတ်နိုင်သော CSV ဖိုင်အဖြစ် ထုတ်နိုင်ပါသည်။</p><button class="btn secondary" data-action="export-csv">↓ CSV Download (အားလုံး)</button><hr style="border:0;border-top:1px solid var(--border);margin:20px 0"><button class="btn small danger" data-action="reset">ဒေတာအားလုံး ဖျက်မည်</button></div></div>${heading('အသုံးပြုပုံ')}<div class="card"><p class="small-note"><b>၁။ ငွေဝင် / ငွေထွက်</b> — ငွေစာရင်းသွင်းပြီး Cash, KPay, Wave, AYA Pay ကိုရွေးပါ။ အမြတ်/အသားတင်လက်ကျန် အလိုအလျောက်တွက်မည်။<br><b>၂။ Booking</b> — ကြိုတင်စာရင်းတင်ပြီး “ငွေလက်ခံ” မှ Deposit / လက်ကျန်ငွေကို သွင်းပါ။<br><b>၃။ ရက်ချိန်း</b> — နေ့ရက်၊ အချိန်၊ လူနာမည်၊ အကြောင်းအရာ၊ အခြေအနေ မှတ်ပါ။<br><b>၄။ လူစာရင်း</b> — ဝင်ချိန်၊ ထွက်ချိန် ကို သွင်းပါ။<br><b>၅။ ပစ္စည်း</b> — အရေအတွက် အဝင်/အထွက်သာ ရေတွက်သည်။ ကုန်ကျစရိတ်ကို ငွေစာရင်းထဲ သွင်းပါ။<br><b>၆။ အစီရင်ခံစာ</b> — လအလိုက် စုစုပေါင်းနှင့် CSV ကိုယူပါ။</p></div><p class="small-note">အင်တာနက်မလိုအပ်ဘဲ အသုံးပြုနိုင်ရန် ဒီ App ကို PWA အဖြစ် ထည့်ထားနိုင်သည်။ ပထမအကြိမ် ဝဘ်လိပ်စာမှ ဖွင့်ရပြီးနောက် “Add to Home screen / Install app” လုပ်နိုင်ပါသည်။</p>`}
+  function renderSettings(){return `${heading('အခြားသူများကို App ပေးသုံးရန်')}<div class="card" style="background:linear-gradient(120deg,#f5eeff,#fff3fa);border:1px solid #e4d9ff"><h3 class="panel-title">↗ Daily Astrology Business — Share App</h3><p class="small-note">အောက်က Link ကို Messenger၊ Viber၊ Telegram၊ WhatsApp မှာပို့ပါ။ လက်ခံသူက Chrome မှာဖွင့်ပြီး Add to Home screen / Install လုပ်နိုင်ပါသည်။</p><div class="quick"><button type="button" class="btn mint" data-action="share-app">↗ App Link ပို့မည်</button><button type="button" class="btn outline" data-action="copy-app-link">⧉ Link ကူးမည်</button><a class="btn secondary" href="${safe(PUBLIC_APP_URL)}" target="_blank" rel="noopener noreferrer">App ဖွင့်မည်</a></div><p class="small-note" style="overflow-wrap:anywhere">${safe(PUBLIC_APP_URL)}</p><div class="notice">🔒 <b>တစ်ဦးချင်းစီ သီးသန့်စာရင်း</b> — အခြားသူများ App သုံးနိုင်သော်လည်း ကိုယ့်ဖုန်းထဲက Customer၊ ဖုန်းနံပါတ်၊ ဝင်ငွေ၊ ထွက်ငွေ အချက်အလက်များကို သူတို့ မမြင်နိုင်ပါ။ အခြားဖုန်းများအကြား စာရင်းအလိုအလျောက် Sync မဖြစ်သေးပါ။</div></div>${heading('အမျိုးအစားများ ထပ်ပေါင်းရန်')}<div class="quick">${catAddButton('appointments','＋ ရက်ချိန်း')}${catAddButton('income','＋ ဝင်ငွေ')}${catAddButton('expense','＋ ထွက်ငွေ')}${catAddButton('items','＋ ပစ္စည်း')}</div><p class="small-note">အသစ်ထည့်ထားသောအမျိုးအစားများကို သက်ဆိုင်ရာ Form ရဲ့ ရွေးချယ်စရာစာရင်းထဲမှာ တွေ့နိုင်ပါမည်။</p>${heading('Data Backup & Restore')}<div class="split"><div class="card"><h3 class="panel-title">အချက်အလက် သိမ်းဆည်းခြင်း</h3><p class="small-note">ဒေတာများကို လက်ရှိ Browser ၏ Local Storage ထဲတွင်သာ သိမ်းထားပါသည်။ ဖုန်းအသစ်၊ Browser အသစ်သို့ အလိုအလျောက် မကူးပါ။ Browser data ရှင်းလင်းလျှင် ဆုံးရှုံးနိုင်ပါသည်။</p><div class="quick"><button class="btn mint" data-action="backup">↓ JSON Backup</button><button class="btn outline" data-action="import">↑ JSON Restore</button></div><p class="small-note">အကြံပြုချက် — နေ့တိုင်း သို့မဟုတ် အပတ်စဉ် JSON Backup ကို Files / Drive ထဲမှာ သိမ်းပါ။ Restore သည် ယခင်ဒေတာကို အစားထိုးပါမည်။</p></div><div class="card"><h3 class="panel-title">စာရင်း Export</h3><p class="small-note">ငွေစာရင်းများကို Excel / Google Sheets ဖြင့် ဖတ်နိုင်သော CSV ဖိုင်အဖြစ် ထုတ်နိုင်ပါသည်။</p><button class="btn secondary" data-action="export-csv">↓ CSV Download (အားလုံး)</button><hr style="border:0;border-top:1px solid var(--border);margin:20px 0"><button class="btn small danger" data-action="reset">ဒေတာအားလုံး ဖျက်မည်</button></div></div>${heading('အသုံးပြုပုံ')}<div class="card"><p class="small-note"><b>၁။ ငွေဝင် / ငွေထွက်</b> — ငွေစာရင်းသွင်းပြီး Cash, KPay, Wave, AYA Pay ကိုရွေးပါ။ အမြတ်/အသားတင်လက်ကျန် အလိုအလျောက်တွက်မည်။<br><b>၂။ Booking</b> — ကြိုတင်စာရင်းတင်ပြီး “ငွေလက်ခံ” မှ Deposit / လက်ကျန်ငွေကို သွင်းပါ။<br><b>၃။ ရက်ချိန်း</b> — နေ့ရက်၊ အချိန်၊ လူနာမည်၊ အကြောင်းအရာ၊ အခြေအနေ မှတ်ပါ။<br><b>၄။ လူစာရင်း</b> — ဝင်ချိန်၊ ထွက်ချိန် ကို သွင်းပါ။<br><b>၅။ ပစ္စည်း</b> — အရေအတွက် အဝင်/အထွက်သာ ရေတွက်သည်။ ကုန်ကျစရိတ်ကို ငွေစာရင်းထဲ သွင်းပါ။<br><b>၆။ အစီရင်ခံစာ</b> — လအလိုက် စုစုပေါင်းနှင့် CSV ကိုယူပါ။</p></div><p class="small-note">ဤ Admin Access Version သည် App ဖွင့်ချိန်တိုင်း Online ခွင့်ပြုချက်စစ်ဆေးရန် လိုအပ်သည်။ “Add to Home screen / Install app” လုပ်နိုင်သော်လည်း Offline မှာ အသုံးမပြုနိုင်ပါ။</p>`}
   function options(vals,selected){return vals.map(v=>`<option value="${safe(v)}" ${v===selected?'selected':''}>${safe(v)}</option>`).join('')}
   function ff(label,name,type='text',value='',opts={}){let attr=`id="f-${name}" name="${name}" ${opts.required?'required':''} ${opts.min!==undefined?`min="${opts.min}"`:''} ${opts.step?`step="${opts.step}"`:''} ${opts.placeholder?`placeholder="${safe(opts.placeholder)}"`:''}`,input=opts.options?`<select ${attr}>${opts.options.map(z=>Array.isArray(z)?`<option value="${safe(z[0])}" ${z[0]==value?'selected':''}>${safe(z[1])}</option>`:`<option value="${safe(z)}" ${z==value?'selected':''}>${safe(z)}</option>`).join('')}</select>`:type==='textarea'?`<textarea ${attr}>${safe(value)}</textarea>`:`<input ${attr} type="${type}" value="${safe(value)}">`;return `<div class="form-field ${opts.wide?'wide':''}"><label for="f-${name}">${label}${opts.required?' *':''}</label>${input}${opts.hint?`<div class="hint">${safe(opts.hint)}</div>`:''}</div>`}
   function openModal(kind,record=null,prefill={}){
@@ -220,5 +299,7 @@
   if('serviceWorker'in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.register('./service-worker.js').catch(()=>{})}
 })();
 </script>
+<script src="./supabase-config.js"></script>
+<script type="module" src="./access-control.js"></script>
 </body>
 </html>
